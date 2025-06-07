@@ -1,0 +1,233 @@
+@use 'tailwindcss/base';
+@use 'tailwindcss/components';
+@use 'tailwindcss/utilities';
+
+/* Dialog animations */
+:host {
+  display: block;
+}
+
+.fixed {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.bg-white {
+  animation: scaleIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ============================
+   EPIC CONFIRMATION DIALOG STYLES
+   ============================ */
+
+// Global Smooth Transitions
+* {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// Backdrop Animation
+.backdrop-blur-md {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+// Epic Dialog Animations
+@keyframes dialogSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes dialogSlideOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.9);
+  }
+}
+
+// Pulse Animation for Slow Elements
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s ease-in-out infinite;
+}
+
+// Enhanced Glassmorphism
+.backdrop-blur-xl {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+// Button Hover Effects
+button {
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+  
+  &:hover::before {
+    left: 100%;
+  }
+}
+
+// Enhanced Focus States
+button:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+}
+
+// Icon Enhancements
+lucide-icon {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  
+  &:hover {
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+  }
+}
+
+// Gradient Border Animation
+@keyframes gradientBorder {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+// Epic Container Effects
+.dialog-container {
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+// Floating Orbs Animation
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-10px) rotate(120deg);
+  }
+  66% {
+    transform: translateY(5px) rotate(240deg);
+  }
+}
+
+// Enhanced Decorative Elements
+.decorative-orb {
+  animation: float 6s ease-in-out infinite;
+}
+
+// Responsive Design
+@media (max-width: 640px) {
+  .dialog-container {
+    margin: 1rem;
+    max-width: calc(100vw - 2rem);
+  }
+  
+  .dialog-header {
+    padding: 1.5rem;
+  }
+  
+  .dialog-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+    
+    button {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+}
+
+// Dark Mode Enhancements
+@media (prefers-color-scheme: dark) {
+  .dialog-container {
+    background: rgba(0, 0, 0, 0.8);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .dialog-header {
+    background: rgba(255, 255, 255, 0.05);
+  }
+}
+
+// High Contrast Mode
+@media (prefers-contrast: high) {
+  .dialog-container {
+    border: 2px solid #fff;
+  }
+  
+  button {
+    border: 2px solid currentColor;
+  }
+}
+
+// Animation Classes
+.dialog-enter {
+  animation: dialogSlideIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.dialog-leave {
+  animation: dialogSlideOut 0.2s ease-in;
+}
+
+// Accessibility Enhancements
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

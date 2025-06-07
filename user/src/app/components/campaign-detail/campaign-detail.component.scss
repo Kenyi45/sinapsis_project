@@ -1,0 +1,871 @@
+// =============================================================================
+// CAMPAIGN DETAIL COMPONENT - DASHBOARD STYLE
+// Modern dashboard styling inspired by professional UI designs
+// =============================================================================
+
+// Importar fuente Inter desde Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+// Variables de colores del dashboard
+:root {
+  --dashboard-bg: #f8fafc;
+  --card-bg: #ffffff;
+  --border-color: #e2e8f0;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
+  --blue-primary: #3b82f6;
+  --blue-hover: #2563eb;
+  --success-color: #10b981;
+  --warning-color: #f59e0b;
+  --error-color: #ef4444;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+// Estilos base
+* {
+  box-sizing: border-box;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// Asegurar que no haya problemas de overflow en el componente
+:host {
+  overflow: visible !important;
+  
+  * {
+    overflow: visible !important;
+  }
+  
+  .mat-button,
+  .mat-raised-button,
+  .mat-stroked-button {
+    overflow: visible !important;
+  }
+}
+
+body, .font-sans {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+// Mejoras para las tarjetas del dashboard
+.bg-white {
+  background-color: var(--card-bg);
+  overflow: visible !important;
+  
+  &.rounded-xl {
+    border-radius: 0.75rem;
+  }
+  
+  &.shadow-sm {
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.2s ease;
+    
+    &:hover {
+      box-shadow: var(--shadow-md);
+    }
+  }
+}
+
+// Mejoras para los bordes
+.border-gray-200 {
+  border-color: var(--border-color);
+}
+
+// Hover effects para botones
+button {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+  }
+  
+  &.bg-blue-600 {
+    background-color: var(--blue-primary);
+    
+    &:hover:not(:disabled) {
+      background-color: var(--blue-hover);
+      box-shadow: var(--shadow-md);
+    }
+  }
+}
+
+// Estilos para los botones de acción simplificados
+.action-btn {
+  border-radius: 8px !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+  
+  &:hover:not(:disabled) {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+  }
+  
+  &:active {
+    transform: translateY(0) !important;
+  }
+  
+  &:disabled {
+    opacity: 0.6 !important;
+    cursor: not-allowed !important;
+  }
+  
+  .mat-button-wrapper {
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 100% !important;
+  }
+}
+
+// Material Design button overrides
+::ng-deep {
+  .mat-raised-button {
+    border-radius: 8px !important;
+    min-height: unset !important;
+    line-height: normal !important;
+    
+    &.h-20 {
+      height: 5rem !important;
+      min-height: 5rem !important;
+    }
+    
+    .mat-button-wrapper {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      height: 100% !important;
+      padding: 0 !important;
+    }
+    
+    .mat-button-focus-overlay,
+    .mat-button-ripple {
+      border-radius: 8px !important;
+    }
+    
+    &.bg-blue-600 {
+      background-color: var(--blue-primary) !important;
+      color: white !important;
+      border: none !important;
+      
+      &:hover:not([disabled]) {
+        background-color: var(--blue-hover) !important;
+        box-shadow: var(--shadow-md) !important;
+      }
+    }
+    
+    &[disabled] {
+      background-color: #d1d5db !important;
+      color: #9ca3af !important;
+      cursor: not-allowed !important;
+    }
+    
+    // Asegurar que el ícono y texto se muestren completamente
+    .mat-icon {
+      margin: 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      line-height: 1 !important;
+    }
+    
+    span {
+      margin: 0 !important;
+      padding: 0 !important;
+      line-height: 1.2 !important;
+      white-space: nowrap !important;
+    }
+  }
+  
+  // Tooltips styling
+  .mat-tooltip {
+    background: rgb(30, 41, 59) !important;
+    color: white !important;
+    font-size: 0.75rem !important;
+    padding: 0.5rem 0.75rem !important;
+    border-radius: 0.5rem !important;
+    max-width: 250px !important;
+    font-family: 'Inter', sans-serif !important;
+  }
+  
+  // Icon consistency
+  .mat-icon {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-family: 'Material Icons' !important;
+  }
+}
+
+// Mejoras para las tarjetas de estadísticas
+.statistics-card {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+  }
+  
+  // Borde superior colorido como en la imagen
+  &:first-child::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--blue-primary);
+  }
+  
+  &:nth-child(2)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--success-color);
+  }
+  
+  &:nth-child(3)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--error-color);
+  }
+  
+  &:nth-child(4)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--warning-color);
+  }
+}
+
+// Iconos en las tarjetas de estadísticas
+.stat-icon {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+        display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  &.bg-blue-100 {
+    background-color: #dbeafe;
+    
+    .mat-icon {
+      color: var(--blue-primary);
+      font-size: 1.125rem;
+    }
+  }
+  
+  &.bg-green-100 {
+    background-color: #dcfce7;
+    
+    .mat-icon {
+      color: var(--success-color);
+      font-size: 1.125rem;
+    }
+  }
+  
+  &.bg-yellow-100 {
+    background-color: #fef3c7;
+    
+    .mat-icon {
+      color: var(--warning-color);
+      font-size: 1.125rem;
+    }
+  }
+  
+  &.bg-red-100 {
+    background-color: #fee2e2;
+    
+    .mat-icon {
+      color: var(--error-color);
+      font-size: 1.125rem;
+    }
+  }
+}
+
+// Mini gráficos en las tarjetas como en la imagen
+.mini-chart {
+  height: 2rem;
+  display: flex;
+  align-items: end;
+  gap: 0.125rem;
+  margin-top: 1rem;
+  
+  > div {
+    width: 0.25rem;
+    border-radius: 0.125rem;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      opacity: 0.8;
+      transform: scaleY(1.1);
+    }
+  }
+}
+
+// Badges de estado mejorados
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  
+  .status-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+  }
+}
+
+// Estados específicos para badges
+.bg-yellow-100.text-yellow-800 {
+  background-color: #fef3c7 !important;
+  color: #92400e !important;
+}
+
+.bg-blue-100.text-blue-800 {
+  background-color: #dbeafe !important;
+  color: #1e40af !important;
+}
+
+.bg-green-100.text-green-800 {
+  background-color: #dcfce7 !important;
+  color: #166534 !important;
+}
+
+.bg-red-100.text-red-800 {
+  background-color: #fee2e2 !important;
+  color: #991b1b !important;
+}
+
+// Contenedor de botones de acción
+.actions-grid {
+  overflow: visible !important;
+  
+  > * {
+    overflow: visible !important;
+    position: relative !important;
+  }
+}
+
+// Botones de acción con diseño dashboard
+.action-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  border: 2px dashed #d1d5db;
+  border-radius: 0.5rem;
+  background: transparent;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  min-height: 80px;
+  overflow: visible !important;
+  position: relative !important;
+  z-index: 1 !important;
+  
+  &:hover:not(:disabled) {
+    border-color: var(--blue-primary);
+    background-color: #f0f9ff;
+    transform: translateY(-1px);
+    z-index: 2 !important;
+  }
+  
+  .mat-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  span {
+    font-size: 0.875rem;
+        font-weight: 500;
+      }
+  
+  &:disabled {
+    border-color: #e5e7eb;
+    color: #9ca3af;
+    cursor: not-allowed;
+    
+    &:hover {
+      transform: none;
+      background: transparent;
+    }
+    
+    .mat-icon,
+    span {
+      color: #9ca3af;
+    }
+  }
+}
+
+// Navegación superior mejorada
+.top-navigation {
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border-color);
+  
+  .nav-button {
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-weight: 500;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      background-color: #f1f5f9;
+      color: var(--text-primary);
+    }
+    
+    .mat-icon {
+      margin-right: 0.5rem;
+    }
+  }
+}
+
+// Animaciones suaves
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+// Estados de loading mejorados
+.loading-spinner {
+  border-color: #e5e7eb;
+  border-top-color: var(--blue-primary);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Mejoras de accesibilidad
+button:focus,
+.action-button:focus {
+  outline: 2px solid var(--blue-primary);
+  outline-offset: 2px;
+}
+
+// Tipografía optimizada
+.text-optimize {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Custom scrollbar elegante
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+// Mejoras responsive
+@media (max-width: 768px) {
+  .grid-cols-1.sm\\:grid-cols-2.lg\\:grid-cols-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+  
+  .statistics-card {
+    padding: 1rem;
+  }
+  
+  // Ajustar altura de botones en móvil
+  .h-24 {
+    height: 5rem !important; // Mantener altura suficiente en móvil
+  }
+  
+  h1 {
+    font-size: 1.875rem !important;
+  }
+  
+  h2 {
+    font-size: 1.25rem !important;
+  }
+  
+  h3 {
+    font-size: 1.125rem !important;
+  }
+  
+  .text-3xl {
+    font-size: 1.5rem !important;
+  }
+  
+  .text-2xl {
+    font-size: 1.25rem !important;
+  }
+}
+
+// Específico para la tabla/lista como en la imagen
+.table-header {
+  background-color: #f8fafc;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.table-cell {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: middle;
+}
+
+// Avatar styling como en la imagen
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+// Efectos hover para filas
+.table-row {
+  transition: background-color 0.15s ease;
+  
+  &:hover {
+    background-color: #f8fafc;
+  }
+}
+
+// Botones pequeños estilo pill
+.pill-button {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 9999px;
+  border: 1px solid var(--border-color);
+  background: white;
+  color: var(--text-secondary);
+  transition: all 0.15s ease;
+  
+  &:hover {
+    background: var(--blue-primary);
+    color: white;
+    border-color: var(--blue-primary);
+  }
+}
+
+// Números grandes destacados
+.big-number {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-primary);
+}
+
+// Labels pequeños
+.small-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
+
+// Sombras específicas para diferentes elementos
+.card-shadow {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.elevated-shadow {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+// Bordes suaves
+.soft-border {
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+// Fondos suaves
+.soft-bg {
+  background-color: rgba(248, 250, 252, 0.8);
+}
+
+/* Epic Campaign Detail Component - Cinema Quality Styles */
+
+/* Smooth transitions for all elements */
+* {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hero section background animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-10px) rotate(1deg); }
+  66% { transform: translateY(5px) rotate(-1deg); }
+}
+
+/* Pulse animation for status indicators */
+@keyframes pulse-glow {
+  0%, 100% { 
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+/* Floating elements animation */
+.floating-element {
+  animation: float 6s ease-in-out infinite;
+}
+
+.floating-element:nth-child(2) {
+  animation-delay: -2s;
+}
+
+.floating-element:nth-child(3) {
+  animation-delay: -4s;
+}
+
+/* Premium card hover effects */
+.premium-card {
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  
+  &:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* Glassmorphism effect */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Progress bar animations */
+.progress-bar {
+  overflow: hidden;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.4),
+      transparent
+    );
+    animation: shimmer 2s infinite;
+  }
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Epic button styles */
+.epic-button {
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transition: left 0.5s;
+  }
+  
+  &:hover::before {
+    left: 100%;
+  }
+}
+
+/* Text gradient effects */
+.gradient-text {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Action cards hover effects */
+.action-card {
+  position: relative;
+  overflow: hidden;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      transparent 50%,
+      rgba(255, 255, 255, 0.1) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  &:hover::after {
+    opacity: 1;
+  }
+}
+
+/* Statistics cards animation */
+.stats-card {
+  transform-origin: center;
+  
+  &:hover {
+    transform: translateY(-12px) scale(1.05);
+    z-index: 10;
+  }
+  
+  .stats-icon {
+    transition: transform 0.3s ease;
+  }
+  
+  &:hover .stats-icon {
+    transform: scale(1.2) rotate(5deg);
+  }
+}
+
+/* Loading animation enhancement */
+.loading-spinner {
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border: 2px solid transparent;
+    border-top: 2px solid rgba(139, 92, 246, 0.6);
+    border-radius: 50%;
+    animation: spin 1.5s linear infinite reverse;
+  }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive enhancements */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem !important;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  
+  .action-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .glass {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Animation delays for staggered effects */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+
+/* Focus states for accessibility */
+button:focus-visible,
+.focusable:focus-visible {
+  outline: 2px solid #8b5cf6;
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .glass {
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid #000;
+  }
+  
+  .gradient-text {
+    -webkit-text-fill-color: initial;
+    color: #000;
+  }
+} 

@@ -1,0 +1,171 @@
+@use 'tailwindcss/base';
+@use 'tailwindcss/components';
+@use 'tailwindcss/utilities';
+
+// ========================================
+// 🎨 SINAPSIS APP - TAILWIND UI PATTERNS
+// Professional sidebar layout with minimal custom styles
+// ========================================
+
+/* Active navigation state for router links */
+.router-link-active {
+  @apply bg-gray-50 text-indigo-600;
+  
+  mat-icon {
+    @apply text-indigo-600;
+  }
+}
+
+/* Size utility for Material Icons to match Tailwind sizing */
+mat-icon.size-5 {
+  font-size: 1.25rem;
+  height: 1.25rem;
+  width: 1.25rem;
+}
+
+mat-icon.size-6 {
+  font-size: 1.5rem;
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+/* Screen reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Enhanced hover states for navigation items */
+.group:hover .group-hover\:text-indigo-600 {
+  @apply text-indigo-600;
+}
+
+/* Focus styles for accessibility */
+button:focus {
+  @apply outline-none;
+}
+
+button:focus-visible {
+  @apply ring-2 ring-indigo-500 ring-offset-2;
+}
+
+/* Custom styles for search input */
+input[type="search"]:focus {
+  @apply outline-none ring-0;
+}
+
+/* Profile dropdown menu positioning */
+.mat-mdc-menu-panel {
+  @apply mt-2 w-32 rounded-md bg-white shadow-lg ring-1 ring-gray-900/5;
+}
+
+/* Responsive behavior for mobile sidebar */
+@media (max-width: 1023px) {
+  .sidebar-mobile-open {
+    @apply translate-x-0;
+  }
+  
+  .sidebar-mobile-closed {
+    @apply -translate-x-full;
+  }
+}
+
+/* Smooth transitions for sidebar toggle */
+.sidebar-transition {
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Custom animations */
+@keyframes shimmer {
+  0% { 
+    transform: translateX(-100%) translateY(-100%) skewY(-12deg); 
+  }
+  100% { 
+    transform: translateX(100%) translateY(100%) skewY(-12deg); 
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 3s infinite;
+}
+
+/* Active navigation state */
+.nav-active {
+  @apply bg-gradient-to-r from-blue-500 to-blue-600 text-white translate-x-2 shadow-md;
+  
+  .absolute {
+    @apply w-1 bg-white;
+  }
+  
+  mat-icon {
+    @apply text-white scale-110;
+  }
+  
+  span {
+    @apply font-medium text-white;
+  }
+}
+
+/* Notification pulse animation */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s infinite;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  aside {
+    @apply w-64;
+  }
+}
+
+@media (max-width: 768px) {
+  aside {
+    @apply w-full fixed inset-y-0 left-0 z-50 transform -translate-x-full transition-transform duration-300;
+  }
+  
+  aside.open {
+    @apply translate-x-0;
+  }
+  
+  main {
+    @apply p-4;
+  }
+  
+  h1 {
+    @apply text-lg;
+  }
+}
+
+@media (max-width: 480px) {
+  main {
+    @apply p-3;
+  }
+  
+  h1 {
+    @apply hidden;
+  }
+  
+  h2 {
+    @apply text-xl;
+  }
+  
+  p {
+    @apply text-xs;
+  }
+} 

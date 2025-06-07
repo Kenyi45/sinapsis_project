@@ -1,0 +1,173 @@
+service: sinapsis-backend
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: ${opt:stage, 'dev'}
+  region: us-east-1
+  environment:
+    DB_HOST: ${env:DB_HOST, 'localhost'}
+    DB_PORT: ${env:DB_PORT, '3306'}
+    DB_NAME: ${env:DB_NAME, 'sinapsis_db'}
+    DB_USER: ${env:DB_USER, 'sinapsis_user'}
+    DB_PASSWORD: ${env:DB_PASSWORD, 'sinapsis_password'}
+    NODE_ENV: ${env:NODE_ENV, 'development'}
+  httpApi:
+    cors:
+      allowedOrigins:
+        - http://localhost:4200
+        - https://*.vercel.app
+      allowedHeaders:
+        - Content-Type
+        - Authorization
+      allowedMethods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - OPTIONS
+
+functions:
+  # ========================================
+  # CAMPAIGN ENDPOINTS - REFACTORED ARCHITECTURE
+  # Using SOLID principles and design patterns
+  # ========================================
+  
+  # Campaign CRUD operations
+  createCampaign:
+    handler: src/handlers/campaigns.create
+    events:
+      - httpApi:
+          path: /api/campaigns
+          method: post
+    description: "Create new campaign using refactored architecture"
+  
+  getCampaigns:
+    handler: src/handlers/campaigns.list
+    events:
+      - httpApi:
+          path: /api/campaigns
+          method: get
+    description: "List campaigns with filters using refactored architecture"
+  
+  getCampaignById:
+    handler: src/handlers/campaigns.getById
+    events:
+      - httpApi:
+          path: /api/campaigns/{id}
+          method: get
+    description: "Get campaign by ID using refactored architecture"
+  
+  updateCampaign:
+    handler: src/handlers/campaigns.update
+    events:
+      - httpApi:
+          path: /api/campaigns/{id}
+          method: put
+    description: "Update campaign using refactored architecture"
+  
+  deleteCampaign:
+    handler: src/handlers/campaigns.delete
+    events:
+      - httpApi:
+          path: /api/campaigns/{id}
+          method: delete
+    description: "Delete campaign using refactored architecture"
+  
+  processCampaign:
+    handler: src/handlers/campaigns.process
+    events:
+      - httpApi:
+          path: /api/campaigns/{id}/process
+          method: post
+    description: "Process campaign (send messages) using refactored architecture"
+  
+  # ========================================
+  # MESSAGE ENDPOINTS
+  # ========================================
+  
+  getCampaignMessages:
+    handler: src/handlers/messages.getByCampaign
+    events:
+      - httpApi:
+          path: /api/campaigns/{campaignId}/messages
+          method: get
+    description: "Get messages for a specific campaign"
+  
+  getMessageById:
+    handler: src/handlers/messages.getById
+    events:
+      - httpApi:
+          path: /api/messages/{id}
+          method: get
+    description: "Get message by ID"
+  
+  getMessageStats:
+    handler: src/handlers/messages.getStats
+    events:
+      - httpApi:
+          path: /api/messages/stats
+          method: get
+    description: "Get message statistics"
+  
+  # ========================================
+  # USER ENDPOINTS
+  # ========================================
+  
+  getUsers:
+    handler: src/handlers/users.list
+    events:
+      - httpApi:
+          path: /api/users
+          method: get
+    description: "List users"
+  
+  getActiveUsers:
+    handler: src/handlers/users.getActiveUsers
+    events:
+      - httpApi:
+          path: /api/users/active
+          method: get
+    description: "Get active users"
+  
+  # ========================================
+  # HEALTH CHECK & MONITORING
+  # ========================================
+  
+  # Health check for refactored architecture
+  health:
+    handler: src/handlers/campaigns.health
+    events:
+      - httpApi:
+          path: /api/health
+          method: get
+    description: "Health check for refactored architecture"
+
+plugins:
+  - serverless-offline
+  - serverless-dotenv-plugin
+
+custom:
+  serverless-offline:
+    httpPort: 3000
+    host: 0.0.0.0
+    # Enable detailed logging for development
+    verbose: true
+  
+  # Environment-specific configurations
+  environments:
+    dev:
+      DB_HOST: localhost
+      DB_PORT: 3306
+
+# Package configuration
+package:
+  exclude:
+    - node_modules/**
+    - .git/**
+    - .env
+    - test/**
+    - coverage/**
+  include:
+    - src/**
+    - package.json 

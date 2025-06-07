@@ -1,0 +1,37 @@
+{
+  "name": "sinapsis-backend",
+  "version": "1.0.0",
+  "description": "Backend API para el sistema de campañas de Sinapsis",
+  "main": "handler.js",
+  "scripts": {
+    "dev": "serverless offline start",
+    "deploy": "serverless deploy",
+    "deploy:dev": "serverless deploy --stage dev",
+    "deploy:prod": "serverless deploy --stage prod",
+    "logs": "serverless logs -f campaigns -t"
+  },
+  "dependencies": {
+    "mysql2": "^3.6.5",
+    "cors": "^2.8.5",
+    "uuid": "^9.0.1",
+    "joi": "^17.11.0",
+    "moment": "^2.29.4"
+  },
+  "devDependencies": {
+    "serverless": "^3.38.0",
+    "serverless-offline": "^13.3.0",
+    "serverless-dotenv-plugin": "^6.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "serverless",
+    "aws",
+    "lambda",
+    "campaigns",
+    "messaging"
+  ],
+  "author": "Sinapsis Team",
+  "license": "MIT"
+} 

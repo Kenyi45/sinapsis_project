@@ -1,0 +1,27 @@
+<div [class]="containerClasses">
+  <!-- Spinner -->
+  <div class="relative">
+    <mat-spinner 
+      [diameter]="spinnerSize" 
+      class="text-blue-600">
+    </mat-spinner>
+  </div>
+  
+  <!-- Loading Message -->
+  <div *ngIf="showMessage" class="mt-4 text-center">
+    <p 
+      class="text-gray-600 font-medium"
+      [class.text-sm]="size === 'small'"
+      [class.text-base]="size === 'medium'"
+      [class.text-lg]="size === 'large'">
+      {{ message }}
+    </p>
+    
+    <!-- Animated dots -->
+    <div class="flex justify-center mt-2 space-x-1">
+      <div class="w-1 h-1 bg-blue-600 rounded-full animate-bounce" style="animation-delay: 0ms;"></div>
+      <div class="w-1 h-1 bg-blue-600 rounded-full animate-bounce" style="animation-delay: 150ms;"></div>
+      <div class="w-1 h-1 bg-blue-600 rounded-full animate-bounce" style="animation-delay: 300ms;"></div>
+    </div>
+  </div>
+</div>

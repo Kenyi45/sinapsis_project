@@ -1,0 +1,92 @@
+# ============================
+# DATABASE - GITIGNORE
+# ============================
+
+# ============================
+# DATABASE FILES
+# ============================
+*.db
+*.sqlite
+*.sqlite3
+*.sql.backup
+*.dump
+*.bak
+
+# ============================
+# DATABASE DATA
+# ============================
+data/
+backups/
+dumps/
+exports/
+
+# ============================
+# MYSQL
+# ============================
+mysql-data/
+mysql-logs/
+my.cnf.local
+mysql-bin.*
+*.frm
+*.ibd
+*.MYI
+*.MYD
+
+# ============================
+# POSTGRESQL
+# ============================
+postgresql-data/
+pg_data/
+*.pgsql
+
+# ============================
+# MONGODB
+# ============================
+mongodb-data/
+*.bson
+
+# ============================
+# LOGS
+# ============================
+logs/
+*.log
+error.log
+query.log
+slow-query.log
+
+# ============================
+# CONFIGURATION
+# ============================
+config/local.*
+config/production.*
+credentials/
+secrets/
+
+# ============================
+# MIGRATION TEMPORARY FILES
+# ============================
+migrations/temp/
+*.tmp.sql
+
+# ============================
+# BACKUP FILES
+# ============================
+*.backup
+*.sql.gz
+*.tar.gz
+backups/*.sql
+
+# ============================
+# ENVIRONMENT SPECIFIC
+# ============================
+.env
+.env.local
+.env.production
+
+# ============================
+# TEMPORARY FILES
+# ============================
+tmp/
+temp/
+*.tmp
+*.temp 

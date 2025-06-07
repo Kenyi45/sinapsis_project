@@ -1,0 +1,215 @@
+# ============================
+# SINAPSIS PROJECT - GITIGNORE
+# Fullstack SMS Campaign System
+# ============================
+
+# ============================
+# NODE.JS & NPM
+# ============================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.npm
+.eslintcache
+.node_repl_history
+*.tgz
+.yarn-integrity
+.pnp.*
+
+# ============================
+# ENVIRONMENT VARIABLES
+# ============================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.example
+config/local.json
+config/production.json
+config/development.json
+
+# ============================
+# DATABASE
+# ============================
+*.db
+*.sqlite
+*.sqlite3
+database/data/
+database/backups/
+database/logs/
+*.sql.backup
+*.dump
+mysql-data/
+
+# ============================
+# LOGS
+# ============================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.nyc_output
+.grunt
+bower_components
+
+# ============================
+# RUNTIME DATA
+# ============================
+pids
+*.pid
+*.seed
+*.pid.lock
+lib-cov
+coverage/
+.nyc_output
+.c8_output
+
+# ============================
+# DEPENDENCY DIRECTORIES
+# ============================
+node_modules/
+jspm_packages/
+
+# ============================
+# TYPESCRIPT
+# ============================
+*.tsbuildinfo
+.tscache/
+
+# ============================
+# OPTIONAL npm CACHE
+# ============================
+.npm
+.eslintcache
+.stylelintcache
+
+# ============================
+# SERVERLESS
+# ============================
+.serverless/
+.webpack/
+.vscode/
+.build/
+
+# ============================
+# EDITOR DIRECTORIES AND FILES
+# ============================
+.vscode/
+.idea/
+.DS_Store
+*.swp
+*.swo
+*~
+
+# ============================
+# OS GENERATED FILES
+# ============================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ============================
+# ANGULAR SPECIFIC (from user/)
+# ============================
+user/dist/
+user/tmp/
+user/out-tsc/
+user/bazel-out/
+user/.angular/cache/
+user/.sass-cache/
+user/connect.lock
+user/coverage/
+user/libpeerconnection.log
+user/testem.log
+user/typings/
+
+# ============================
+# SERVER SPECIFIC
+# ============================
+server/dist/
+server/build/
+server/uploads/
+server/tmp/
+server/.env
+server/config/local.*
+
+# ============================
+# DEVELOPMENT TOOLS
+# ============================
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ============================
+# TESTING
+# ============================
+coverage/
+.nyc_output/
+junit.xml
+test-results/
+
+# ============================
+# BUILD OUTPUTS
+# ============================
+dist/
+build/
+out/
+.next/
+.nuxt/
+.cache/
+
+# ============================
+# DEPLOYMENT
+# ============================
+.vercel
+.netlify
+.aws/
+
+# ============================
+# DOCUMENTATION BUILDS
+# ============================
+docs/build/
+docs/dist/
+
+# ============================
+# TEMPORARY FILES
+# ============================
+*.tmp
+*.temp
+.tmp/
+.temp/
+
+# ============================
+# API KEYS & CREDENTIALS
+# ============================
+credentials.json
+service-account.json
+*.pem
+*.key
+*.crt
+*.p12
+
+# ============================
+# MONITORING & ANALYTICS
+# ============================
+newrelic_agent.log
+.monitrc
+
+# ============================
+# MISC
+# ============================
+.sass-cache/
+.connect.lock
+.typings/
+.tsdrc
+.tern-port 

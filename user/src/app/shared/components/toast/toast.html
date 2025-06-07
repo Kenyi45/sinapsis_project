@@ -1,0 +1,48 @@
+<div [class]="toastClasses" role="alert" aria-live="polite">
+  <!-- Icon -->
+  <div class="flex-shrink-0 mr-3">
+    <mat-icon [class]="iconClasses" class="text-xl">{{ toastIcon }}</mat-icon>
+  </div>
+
+  <!-- Content -->
+  <div class="flex-1 min-w-0">
+    <!-- Title -->
+    <div class="font-medium text-sm">
+      {{ data.title }}
+    </div>
+    
+    <!-- Message -->
+    <div 
+      *ngIf="data.message" 
+      class="mt-1 text-sm opacity-90"
+    >
+      {{ data.message }}
+    </div>
+
+    <!-- Action Button -->
+    <div 
+      *ngIf="data.action" 
+      class="mt-3"
+    >
+      <button
+        type="button"
+        mat-button
+        class="text-xs font-medium underline hover:no-underline"
+        (click)="onActionClick()"
+      >
+        {{ data.action.label }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Dismiss Button -->
+  <button
+    *ngIf="data.dismissible"
+    type="button"
+    class="flex-shrink-0 ml-4 p-1 rounded-md hover:bg-black hover:bg-opacity-10 transition-colors duration-200"
+    (click)="onDismiss()"
+    aria-label="Cerrar notificación"
+  >
+    <mat-icon class="text-lg opacity-60 hover:opacity-100">close</mat-icon>
+  </button>
+</div>

@@ -1,0 +1,210 @@
+<p>data-table works!</p>
+
+<!-- Table Container -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+  
+  <!-- Loading Overlay -->
+  <div 
+    *ngIf="loading"
+    class="absolute inset-0 bg-white bg-opacity-75 flex items-center justify-center z-10"
+  >
+    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+  </div>
+
+  <!-- Table -->
+  <div class="overflow-x-auto">
+    <table class="min-w-full divide-y divide-gray-200">
+      
+      <!-- Header -->
+      <thead class="bg-gray-50">
+        <tr>
+          <!-- Selection Column -->
+          <th 
+            *ngIf="selectable" 
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-12"
+          >
+            <mat-checkbox
+              [checked]="allSelected"
+              [indeterminate]="indeterminate"
+              (change)="toggleAllSelection()"
+              class="text-blue-600"
+            ></mat-checkbox>
+          </th>
+
+          <!-- Data Columns -->
+          <th 
+            *ngFor="let column of columns"
+            [style.width]="column.width"
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            [class.cursor-pointer]="column.sortable"
+            [class.hover:bg-gray-100]="column.sortable"
+            (click)="onSort(column)"
+          >
+            <div class="flex items-center space-x-1">
+              <span>{{ column.label }}</span>
+              <mat-icon 
+                *ngIf="column.sortable" 
+                class="text-sm text-gray-400"
+              >
+                {{ getSortIcon(column) }}
+              </mat-icon>
+            </div>
+          </th>
+
+          <!-- Actions Column -->
+          <th 
+            *ngIf="actions.length > 0" 
+            class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider w-32"
+          >
+            Acciones
+          </th>
+        </tr>
+      </thead>
+
+      <!-- Body -->
+      <tbody class="bg-white divide-y divide-gray-200">
+        <!-- Data Rows -->
+        <tr 
+          *ngFor="let row of displayedData; let i = index"
+          class="hover:bg-gray-50 transition-colors duration-150 cursor-pointer"
+          (click)="onRowClick(row)"
+        >
+          <!-- Selection Cell -->
+          <td *ngIf="selectable" class="px-6 py-4 whitespace-nowrap">
+            <mat-checkbox
+              [checked]="selectedRows.has(row)"
+              (change)="toggleRowSelection(row)"
+              (click)="$event.stopPropagation()"
+              class="text-blue-600"
+            ></mat-checkbox>
+          </td>
+
+          <!-- Data Cells -->
+          <td 
+            *ngFor="let column of columns"
+            class="px-6 py-4 whitespace-nowrap"
+            [class]="column.type === 'number' ? 'text-right' : 'text-left'"
+          >
+            <ng-container [ngSwitch]="column.type">
+              
+              <!-- Badge Type -->
+              <span 
+                *ngSwitchCase="'badge'"
+                [class]="getBadgeClass(getCellValue(row, column), column)"
+                class="inline-flex px-2 py-1 text-xs font-semibold rounded-full"
+              >
+                {{ getCellValue(row, column) }}
+              </span>
+
+              <!-- Boolean Type -->
+              <div 
+                *ngSwitchCase="'boolean'"
+                class="flex items-center"
+              >
+                <mat-icon 
+                  [class]="row[column.key] ? 'text-green-500' : 'text-red-500'"
+                  class="text-sm"
+                >
+                  {{ row[column.key] ? 'check' : 'close' }}
+                </mat-icon>
+                <span class="ml-2 text-sm text-gray-900">
+                  {{ getCellValue(row, column) }}
+                </span>
+              </div>
+
+              <!-- Default Type -->
+              <div 
+                *ngSwitchDefault
+                class="text-sm text-gray-900"
+              >
+                {{ getCellValue(row, column) }}
+              </div>
+            </ng-container>
+          </td>
+
+          <!-- Actions Cell -->
+          <td 
+            *ngIf="actions.length > 0" 
+            class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
+          >
+            <div class="flex items-center justify-end space-x-2">
+              <button
+                *ngFor="let action of actions"
+                type="button"
+                [disabled]="isActionDisabled(action, row)"
+                [matTooltip]="action.label"
+                [class]="action.color || 'text-gray-400 hover:text-gray-600'"
+                class="p-1 rounded-md hover:bg-gray-100 transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
+                (click)="executeAction(action, row, $event)"
+              >
+                <mat-icon class="text-lg">{{ action.icon }}</mat-icon>
+              </button>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Empty State -->
+        <tr *ngIf="displayedData.length === 0 && !loading">
+          <td 
+            [attr.colspan]="columns.length + (selectable ? 1 : 0) + (actions.length > 0 ? 1 : 0)"
+            class="px-6 py-12 text-center text-gray-500"
+          >
+            <div class="flex flex-col items-center">
+              <mat-icon class="text-4xl text-gray-300 mb-2">inbox</mat-icon>
+              <p class="text-sm">{{ emptyMessage }}</p>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div 
+    *ngIf="pagination && totalPages > 1"
+    class="bg-white px-6 py-3 border-t border-gray-200 flex items-center justify-between"
+  >
+    <!-- Info -->
+    <div class="text-sm text-gray-700">
+      Mostrando {{ (currentPage - 1) * pageSize + 1 }} a 
+      {{ getMin(currentPage * pageSize, totalItems) }} de 
+      {{ totalItems }} resultados
+    </div>
+
+    <!-- Navigation -->
+    <nav class="flex items-center space-x-2">
+      <!-- Previous -->
+      <button
+        type="button"
+        [disabled]="currentPage === 1"
+        class="px-3 py-1 rounded-md text-sm font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-150"
+        (click)="onPageChange(currentPage - 1)"
+      >
+        <mat-icon class="text-lg">chevron_left</mat-icon>
+      </button>
+
+      <!-- Page Numbers -->
+      <button
+        *ngFor="let page of pageNumbers.slice(getMax(0, currentPage - 3), getMin(pageNumbers.length, currentPage + 2))"
+        type="button"
+        [class]="page === currentPage 
+          ? 'bg-blue-600 text-white' 
+          : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'"
+        class="px-3 py-1 rounded-md text-sm font-medium transition-colors duration-150"
+        (click)="onPageChange(page)"
+      >
+        {{ page }}
+      </button>
+
+      <!-- Next -->
+      <button
+        type="button"
+        [disabled]="currentPage === totalPages"
+        class="px-3 py-1 rounded-md text-sm font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-150"
+        (click)="onPageChange(currentPage + 1)"
+      >
+        <mat-icon class="text-lg">chevron_right</mat-icon>
+      </button>
+    </nav>
+  </div>
+</div>

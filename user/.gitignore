@@ -1,0 +1,148 @@
+# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+
+# ============================
+# ANGULAR COMPILED OUTPUT
+# ============================
+/dist
+/tmp
+/out-tsc
+/bazel-out
+
+# ============================
+# NODE.JS
+# ============================
+/node_modules
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# ============================
+# IDEs and EDITORS
+# ============================
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+*.sublime-project
+
+# ============================
+# VISUAL STUDIO CODE
+# ============================
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# ============================
+# ANGULAR SPECIFIC
+# ============================
+/.angular/cache
+/.angular/
+.sass-cache/
+/connect.lock
+/coverage
+/libpeerconnection.log
+testem.log
+/typings
+*.ngfactory.ts
+*.ngstyle.ts
+
+# ============================
+# TESTING
+# ============================
+/coverage
+/reports
+junit.xml
+karma-reports/
+protractor-reports/
+
+# ============================
+# E2E TESTING
+# ============================
+/e2e/*.js
+/e2e/*.map
+/e2e/*.d.ts
+
+# ============================
+# ENVIRONMENT FILES
+# ============================
+# Note: Keep environment files that aren't sensitive
+/src/environments/environment.local.ts
+/src/environments/environment.*.local.ts
+
+# ============================
+# TYPESCRIPT CACHE
+# ============================
+*.tsbuildinfo
+.tscache/
+
+# ============================
+# WEBPACK & BUILD TOOLS
+# ============================
+.webpack/
+webpack-stats.json
+
+# ============================
+# STORYBOOK
+# ============================
+.storybook-out/
+storybook-static/
+
+# ============================
+# SYSTEM FILES
+# ============================
+.DS_Store
+Thumbs.db
+
+# ============================
+# LOGS
+# ============================
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ============================
+# RUNTIME DATA
+# ============================
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# ============================
+# DEPENDENCY DIRECTORIES
+# ============================
+node_modules/
+jspm_packages/
+
+# ============================
+# OPTIONAL npm CACHE
+# ============================
+.npm
+.eslintcache
+.stylelintcache
+
+# ============================
+# MICROFRONTEND
+# ============================
+remoteEntry.js
+*.module-federation.manifest.json
+
+# ============================
+# ANALYTICS
+# ============================
+.angular/cache/analytics
+
+# ============================
+# TEMPORARY FILES
+# ============================
+*.tmp
+*.temp
+.tmp/

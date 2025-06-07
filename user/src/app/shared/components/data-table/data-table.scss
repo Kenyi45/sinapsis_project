@@ -1,0 +1,39 @@
+@use 'tailwindcss/base';
+@use 'tailwindcss/components';
+@use 'tailwindcss/utilities';
+
+/* Table container */
+:host {
+  display: block;
+  position: relative;
+}
+
+/* Custom scrollbar for table */
+.overflow-x-auto::-webkit-scrollbar {
+  height: 6px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 3px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Row hover animation */
+tbody tr {
+  transition: background-color 0.15s ease-in-out;
+}
+
+/* Action button hover effects */
+button:hover mat-icon {
+  transform: scale(1.1);
+  transition: transform 0.15s ease-in-out;
+}

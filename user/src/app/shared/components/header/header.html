@@ -1,0 +1,121 @@
+<header class="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-30">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
+      
+      <!-- Left Section: Menu Toggle & Logo -->
+      <div class="flex items-center space-x-4">
+        <!-- Mobile Menu Toggle -->
+        <button
+          type="button"
+          (click)="onToggleSidebar()"
+          class="p-2 rounded-lg text-gray-600 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 lg:hidden">
+          <mat-icon class="text-xl">menu</mat-icon>
+        </button>
+
+        <!-- Desktop Menu Toggle -->
+        <button
+          type="button"
+          (click)="onToggleSidebar()"
+          class="hidden lg:flex p-2 rounded-lg text-gray-600 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <mat-icon class="text-xl" [class.rotate-180]="sidebarOpen">menu</mat-icon>
+        </button>
+
+        <!-- Logo & Brand -->
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+            <mat-icon class="text-white text-lg">campaign</mat-icon>
+          </div>
+          <div class="hidden sm:block">
+            <h1 class="text-xl font-bold text-gray-900">Sinapsis SMS</h1>
+          </div>
+        </div>
+      </div>
+
+      <!-- Center Section: Navigation (Desktop) -->
+      <nav class="hidden md:flex items-center space-x-1">
+        <a
+          routerLink="/campaigns"
+          routerLinkActive="bg-blue-50 text-blue-700"
+          class="inline-flex items-center px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-200">
+          <mat-icon class="mr-2 text-lg">campaign</mat-icon>
+          Campañas
+        </a>
+        <a
+          routerLink="/users"
+          routerLinkActive="bg-blue-50 text-blue-700"
+          class="inline-flex items-center px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-200">
+          <mat-icon class="mr-2 text-lg">people</mat-icon>
+          Usuarios
+        </a>
+        <a
+          routerLink="/reports"
+          routerLinkActive="bg-blue-50 text-blue-700"
+          class="inline-flex items-center px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-200">
+          <mat-icon class="mr-2 text-lg">analytics</mat-icon>
+          Reportes
+        </a>
+      </nav>
+
+      <!-- Right Section: User Menu -->
+      <div class="flex items-center space-x-4">
+        <!-- Notifications -->
+        <button
+          type="button"
+          class="p-2 rounded-lg text-gray-600 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 relative">
+          <mat-icon class="text-xl">notifications</mat-icon>
+          <!-- Notification Badge -->
+          <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+        </button>
+
+        <!-- User Menu -->
+        <div class="relative">
+          <button
+            type="button"
+            [matMenuTriggerFor]="userMenu"
+            class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            
+            <!-- User Avatar -->
+            <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
+              <span class="text-sm font-medium text-gray-700">
+                {{ getInitials(currentUser?.name || 'Usuario') }}
+              </span>
+            </div>
+            
+            <!-- User Info (Desktop) -->
+            <div class="hidden sm:block text-left">
+              <p class="text-sm font-medium text-gray-900">
+                {{ currentUser?.name || 'Usuario' }}
+              </p>
+              <p class="text-xs text-gray-500">
+                {{ currentUser?.email || 'usuario@example.com' }}
+              </p>
+            </div>
+            
+            <!-- Dropdown Arrow -->
+            <mat-icon class="text-gray-400 text-sm">expand_more</mat-icon>
+          </button>
+
+          <!-- User Dropdown Menu -->
+          <mat-menu #userMenu="matMenu" class="mt-2">
+            <button mat-menu-item (click)="navigateToProfile()" class="flex items-center">
+              <mat-icon class="mr-3 text-gray-400">person</mat-icon>
+              <span>Mi Perfil</span>
+            </button>
+            
+            <button mat-menu-item (click)="navigateToSettings()" class="flex items-center">
+              <mat-icon class="mr-3 text-gray-400">settings</mat-icon>
+              <span>Configuración</span>
+            </button>
+            
+            <div class="border-t border-gray-100 my-1"></div>
+            
+            <button mat-menu-item (click)="onLogout()" class="flex items-center text-red-600">
+              <mat-icon class="mr-3 text-red-400">logout</mat-icon>
+              <span>Cerrar Sesión</span>
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

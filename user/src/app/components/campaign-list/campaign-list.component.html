@@ -1,0 +1,538 @@
+<!-- Premium Dashboard Layout -->
+<div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+  <!-- Epic Hero Header -->
+  <div class="relative overflow-hidden">
+    <!-- Gradient Background -->
+    <div class="absolute max-h-[600px] inset-0 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900"></div>
+    
+    <!-- Animated Background Pattern -->
+    <div class="absolute inset-0 opacity-20">
+      <div class="absolute inset-0" style="background-image: radial-gradient(circle at 25% 25%, rgba(255,255,255,0.2) 0%, transparent 50%), radial-gradient(circle at 75% 75%, rgba(255,255,255,0.1) 0%, transparent 50%); background-size: 100px 100px;"></div>
+    </div>
+    
+    <!-- Floating Elements -->
+    <div class="absolute top-20 left-20 w-64 h-64 bg-gradient-to-br from-blue-400/20 to-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
+    <div class="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-br from-pink-400/20 to-indigo-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+    
+    <div class="relative max-w-7xl mx-auto px-6 py-12">
+      <!-- Enhanced Breadcrumb -->
+      <nav class="flex mb-8" aria-label="Breadcrumb">
+        <ol role="list" class="flex items-center space-x-4">
+          <li>
+            <button class="text-white/80 hover:text-white font-medium transition-all duration-200 hover:scale-105">
+              <lucide-icon [img]="HomeIcon" class="size-4 mr-2 inline"></lucide-icon>
+              Dashboard
+            </button>
+          </li>
+          <li>
+            <div class="flex items-center">
+              <lucide-icon [img]="ChevronRightIcon" class="size-4 text-white/60 mx-2"></lucide-icon>
+              <span class="text-white font-semibold">Campañas SMS</span>
+            </div>
+          </li>
+        </ol>
+      </nav>
+      
+      <!-- Epic Page Title -->
+      <div class="flex items-center justify-between mb-8">
+        <div class="flex items-center space-x-6">
+          <div class="relative">
+            <div class="w-20 h-20 bg-white/10 backdrop-blur-sm rounded-3xl flex items-center justify-center border border-white/20 shadow-2xl">
+              <lucide-icon [img]="MegaphoneIcon" class="size-10 text-white"></lucide-icon>
+            </div>
+            <div class="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center shadow-lg">
+              <lucide-icon [img]="CheckIcon" class="size-4 text-white"></lucide-icon>
+            </div>
+          </div>
+          <div>
+            <h1 class="text-5xl font-black text-white mb-3 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
+              Centro de Campañas
+            </h1>
+            <p class="text-xl text-white/80 font-medium mb-2">Sistema de Gestión SMS Empresarial</p>
+            <p class="text-white/60 max-w-2xl">
+              Administra, monitorea y optimiza todas tus campañas de mensajería con análisis en tiempo real y automatización inteligente
+            </p>
+          </div>
+        </div>
+
+        <!-- Premium Action Buttons -->
+        <div class="flex items-center space-x-4">
+          <button 
+            type="button"
+            (click)="refreshData()"
+            class="group relative inline-flex items-center px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold rounded-xl hover:bg-white/20 transition-all duration-300 hover:scale-105">
+            <lucide-icon [img]="RefreshCwIcon" class="size-5 mr-2 group-hover:rotate-180 transition-transform duration-500"></lucide-icon>
+            Actualizar
+          </button>
+          
+          <button 
+            type="button"
+            (click)="router.navigate(['/campaigns/new'])"
+            class="group relative inline-flex items-center px-8 py-4 bg-gradient-to-r from-emerald-500 via-green-500 to-teal-500 hover:from-emerald-600 hover:via-green-600 hover:to-teal-600 text-white font-bold rounded-xl transition-all duration-300 hover:scale-105 shadow-2xl shadow-green-500/25"
+          >
+            <lucide-icon [img]="PlusIcon" class="size-5 mr-2 group-hover:rotate-90 transition-transform duration-300"></lucide-icon>
+            <span>Crear Nueva Campaña</span>
+            <div class="absolute inset-0 bg-white/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Enhanced Stats Overview -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <!-- Total Campaigns -->
+        <div class="group bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-105">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-white/80 text-sm font-medium mb-1">Total Campañas</p>
+              <p class="text-3xl font-bold text-white">{{campaigns.length}}</p>
+            </div>
+            <div class="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center">
+              <lucide-icon [img]="MegaphoneIcon" class="size-6 text-blue-300"></lucide-icon>
+            </div>
+          </div>
+          <div class="mt-4 h-1 bg-white/20 rounded-full overflow-hidden">
+            <div class="h-full bg-gradient-to-r from-blue-400 to-blue-600 rounded-full w-full"></div>
+          </div>
+        </div>
+
+        <!-- Completed -->
+        <div class="group bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-105">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-white/80 text-sm font-medium mb-1">Completadas</p>
+              <p class="text-3xl font-bold text-white">{{getCompletedCampaigns()}}</p>
+            </div>
+            <div class="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center">
+              <lucide-icon [img]="CheckCircleIcon" class="size-6 text-green-300"></lucide-icon>
+            </div>
+          </div>
+          <div class="mt-4 h-1 bg-white/20 rounded-full overflow-hidden">
+            <div class="h-full bg-gradient-to-r from-green-400 to-emerald-600 rounded-full" [style.width.%]="getCompletedPercentage()"></div>
+          </div>
+        </div>
+
+        <!-- Processing -->
+        <div class="group bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-105">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-white/80 text-sm font-medium mb-1">En Proceso</p>
+              <p class="text-3xl font-bold text-white">{{getProcessingCampaigns()}}</p>
+            </div>
+            <div class="w-12 h-12 bg-yellow-500/20 rounded-xl flex items-center justify-center">
+              <lucide-icon [img]="ClockIcon" class="size-6 text-yellow-300"></lucide-icon>
+            </div>
+          </div>
+          <div class="mt-4 h-1 bg-white/20 rounded-full overflow-hidden">
+            <div class="h-full bg-gradient-to-r from-yellow-400 to-orange-600 rounded-full" [style.width.%]="getProcessingPercentage()"></div>
+          </div>
+        </div>
+
+        <!-- Total Messages -->
+        <div class="group bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-105">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-white/80 text-sm font-medium mb-1">Mensajes</p>
+              <p class="text-3xl font-bold text-white">{{getTotalMessages()}}</p>
+            </div>
+            <div class="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center">
+              <lucide-icon [img]="MessageSquareIcon" class="size-6 text-purple-300"></lucide-icon>
+            </div>
+          </div>
+          <div class="mt-4 h-1 bg-white/20 rounded-full overflow-hidden">
+            <div class="h-full bg-gradient-to-r from-purple-400 to-pink-600 rounded-full w-full"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="py-10">
+    <div class="mx-auto max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-12 lg:gap-8">
+      <div class="hidden lg:block lg:col-span-3 xl:col-span-2">
+        <!-- Left sidebar -->
+        <nav aria-label="Sidebar" class="sticky top-4 divide-y divide-gray-300">
+          <div class="space-y-1 pb-8">
+            <h3 class="text-sm font-medium text-gray-500">Estadísticas</h3>
+            
+            <!-- Stats cards in sidebar -->
+            <div class="space-y-3 pt-3">
+              <div class="rounded-lg bg-white p-3 shadow ring-1 ring-black ring-opacity-5">
+                <div class="flex items-center">
+                  <div class="flex-shrink-0">
+                    <lucide-icon [img]="MegaphoneIcon" class="size-4 text-indigo-500"></lucide-icon>
+                  </div>
+                  <div class="ml-3">
+                    <p class="text-sm font-medium text-gray-900">{{campaigns.length}}</p>
+                    <p class="text-sm text-gray-500">Total</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="rounded-lg bg-white p-3 shadow ring-1 ring-black ring-opacity-5">
+                <div class="flex items-center">
+                  <div class="flex-shrink-0">
+                    <lucide-icon [img]="CheckCircleIcon" class="size-4 text-green-500"></lucide-icon>
+                  </div>
+                  <div class="ml-3">
+                    <p class="text-sm font-medium text-gray-900">{{getCompletedCampaigns()}}</p>
+                    <p class="text-sm text-gray-500">Completadas</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="rounded-lg bg-white p-3 shadow ring-1 ring-black ring-opacity-5">
+                <div class="flex items-center">
+                  <div class="flex-shrink-0">
+                    <lucide-icon [img]="ClockIcon" class="size-4 text-yellow-500"></lucide-icon>
+                  </div>
+                  <div class="ml-3">
+                    <p class="text-sm font-medium text-gray-900">{{getProcessingCampaigns()}}</p>
+                    <p class="text-sm text-gray-500">Procesando</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="rounded-lg bg-white p-3 shadow ring-1 ring-black ring-opacity-5">
+                <div class="flex items-center">
+                  <div class="flex-shrink-0">
+                    <lucide-icon [img]="MessageSquareIcon" class="size-4 text-purple-500"></lucide-icon>
+                  </div>
+                  <div class="ml-3">
+                    <p class="text-sm font-medium text-gray-900">{{getTotalMessages()}}</p>
+                    <p class="text-sm text-gray-500">Mensajes</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+      
+      <main class="lg:col-span-9 xl:col-span-10">
+        <!-- Mobile stats -->
+        <div class="lg:hidden">
+          <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <div class="relative overflow-hidden rounded-lg bg-white px-4 pb-12 pt-5 shadow sm:px-6 sm:pt-6">
+              <dt>
+                <div class="absolute rounded-md bg-indigo-500 p-3">
+                  <lucide-icon [img]="MegaphoneIcon" class="size-4 text-white" aria-hidden="true"></lucide-icon>
+                </div>
+                <p class="ml-16 truncate text-sm font-medium text-gray-500">Total Campañas</p>
+              </dt>
+              <dd class="ml-16 flex items-baseline pb-6 sm:pb-7">
+                <p class="text-2xl font-semibold text-gray-900">{{campaigns.length}}</p>
+              </dd>
+            </div>
+            
+            <div class="relative overflow-hidden rounded-lg bg-white px-4 pb-12 pt-5 shadow sm:px-6 sm:pt-6">
+              <dt>
+                <div class="absolute rounded-md bg-green-500 p-3">
+                  <lucide-icon [img]="CheckCircleIcon" class="size-4 text-white" aria-hidden="true"></lucide-icon>
+                </div>
+                <p class="ml-16 truncate text-sm font-medium text-gray-500">Completadas</p>
+              </dt>
+              <dd class="ml-16 flex items-baseline pb-6 sm:pb-7">
+                <p class="text-2xl font-semibold text-gray-900">{{getCompletedCampaigns()}}</p>
+                <p class="ml-2 flex items-baseline text-sm font-semibold text-green-600">
+                  {{getCompletedPercentage()}}%
+                </p>
+              </dd>
+            </div>
+            
+            <div class="relative overflow-hidden rounded-lg bg-white px-4 pb-12 pt-5 shadow sm:px-6 sm:pt-6">
+              <dt>
+                <div class="absolute rounded-md bg-yellow-500 p-3">
+                  <lucide-icon [img]="ClockIcon" class="size-4 text-white" aria-hidden="true"></lucide-icon>
+                </div>
+                <p class="ml-16 truncate text-sm font-medium text-gray-500">Procesando</p>
+              </dt>
+              <dd class="ml-16 flex items-baseline pb-6 sm:pb-7">
+                <p class="text-2xl font-semibold text-gray-900">{{getProcessingCampaigns()}}</p>
+                <p class="ml-2 flex items-baseline text-sm font-semibold text-yellow-600">
+                  {{getProcessingPercentage()}}%
+                </p>
+              </dd>
+            </div>
+            
+            <div class="relative overflow-hidden rounded-lg bg-white px-4 pb-12 pt-5 shadow sm:px-6 sm:pt-6">
+              <dt>
+                <div class="absolute rounded-md bg-purple-500 p-3">
+                  <lucide-icon [img]="MessageSquareIcon" class="size-4 text-white" aria-hidden="true"></lucide-icon>
+                </div>
+                <p class="ml-16 truncate text-sm font-medium text-gray-500">Total Mensajes</p>
+              </dt>
+              <dd class="ml-16 flex items-baseline pb-6 sm:pb-7">
+                <p class="text-2xl font-semibold text-gray-900">{{getTotalMessages()}}</p>
+              </dd>
+            </div>
+          </dl>
+        </div>
+
+        <!-- Filters -->
+        <div class="mt-8">
+          <div class="bg-white shadow sm:rounded-lg">
+            <div class="px-4 py-5 sm:p-6">
+              <h3 class="text-base font-semibold leading-6 text-gray-900">Filtros de Búsqueda</h3>
+              <div class="mt-5">
+                <form [formGroup]="filterForm" (ngSubmit)="applyFilters()">
+                  <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                    <div>
+                      <label for="start_date" class="block text-sm font-medium leading-6 text-gray-900">Fecha desde</label>
+                      <div class="mt-2">
+                        <input 
+                          type="date" 
+                          id="start_date"
+                          formControlName="start_date"
+                          class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        >
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <label for="end_date" class="block text-sm font-medium leading-6 text-gray-900">Fecha hasta</label>
+                      <div class="mt-2">
+                        <input 
+                          type="date" 
+                          id="end_date"
+                          formControlName="end_date"
+                          class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        >
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <label for="user_id" class="block text-sm font-medium leading-6 text-gray-900">Usuario</label>
+                      <div class="mt-2">
+                        <select 
+                          id="user_id"
+                          formControlName="user_id"
+                          class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        >
+                          <option value="">Todos los usuarios</option>
+                          <option *ngFor="let user of users || []" [value]="user.id">
+                            {{user.username}} ({{user.full_name || 'N/A'}})
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <label for="status" class="block text-sm font-medium leading-6 text-gray-900">Estado</label>
+                      <div class="mt-2">
+                        <select 
+                          id="status"
+                          formControlName="status"
+                          class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        >
+                          <option value="">Todos los estados</option>
+                          <option value="0">⏳ Pendiente</option>
+                          <option value="1">🔄 Procesando</option>
+                          <option value="2">✅ Completada</option>
+                          <option value="3">❌ Error</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="mt-6 flex justify-end gap-x-3">
+                    <button 
+                      type="button" 
+                      (click)="clearFilters()"
+                      class="rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                    >
+                      <lucide-icon [img]="XIcon" class="mr-1 size-4"></lucide-icon>
+                      Limpiar
+                    </button>
+                    <button 
+                      type="submit"
+                      class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    >
+                      <lucide-icon [img]="SearchIcon" class="mr-1 size-4"></lucide-icon>
+                      Filtrar
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Loading state -->
+        <div *ngIf="loading" class="mt-8">
+          <div class="text-center">
+            <mat-spinner diameter="40"></mat-spinner>
+            <h3 class="mt-2 text-sm font-semibold text-gray-900">Cargando campañas...</h3>
+            <p class="mt-1 text-sm text-gray-500">Obteniendo la información más reciente</p>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div *ngIf="!loading && campaigns && campaigns.length > 0" class="mt-8 flow-root">
+          <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+              <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                <table class="min-w-full divide-y divide-gray-300">
+                  <thead class="bg-gray-50">
+                    <tr>
+                      <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                        Campaña
+                      </th>
+                      <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                        Usuario
+                      </th>
+                      <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                        Fecha
+                      </th>
+                      <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                        Mensajes
+                      </th>
+                      <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                        Estado
+                      </th>
+                      <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                        <span class="sr-only">Acciones</span>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-200 bg-white">
+                    <tr 
+                      *ngFor="let campaign of campaigns; trackBy: trackByCampaignId" 
+                      class="hover:bg-gray-50"
+                    >
+                      <td class="whitespace-nowrap py-4 pl-4 pr-3 sm:pl-6">
+                        <div class="flex items-center">
+                          <div class="size-10 flex-shrink-0">
+                            <div class="size-10 rounded-full bg-indigo-100 flex items-center justify-center">
+                              <lucide-icon [img]="MegaphoneIcon" class="size-4 text-indigo-600"></lucide-icon>
+                            </div>
+                          </div>
+                          <div class="ml-4">
+                            <div class="text-sm font-medium text-gray-900">{{campaign.name}}</div>
+                            <div class="text-sm text-gray-500">ID: {{campaign.id}}</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="whitespace-nowrap px-3 py-4 text-sm">
+                        <div class="text-gray-900 font-medium">{{campaign.username}}</div>
+                      </td>
+                      <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">
+                        {{campaign.process_date | date:'dd/MM/yyyy HH:mm'}}
+                      </td>
+                      <td class="whitespace-nowrap px-3 py-4 text-sm">
+                        <div class="text-gray-900 font-semibold">{{campaign.total_messages}}</div>
+                      </td>
+                      <td class="whitespace-nowrap px-3 py-4 text-sm">
+                        <span [class]="getCampaignStatusClass(campaign.process_status)" class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold">
+                          {{getCampaignStatusText(campaign.process_status)}}
+                        </span>
+                      </td>
+                      <td class="relative whitespace-nowrap py-4 pl-3 pr-6 text-right">
+                        <div class="flex justify-end gap-x-2">
+                          <button 
+                            type="button"
+                            (click)="viewCampaign(campaign.id)"
+                            class="group flex items-center justify-center w-8 h-8 rounded-lg bg-indigo-100 hover:bg-indigo-200 text-indigo-600 hover:text-indigo-700 transition-all duration-300 transform hover:scale-110"
+                            title="Ver detalles"
+                          >
+                            <lucide-icon [img]="EyeIcon" class="size-4"></lucide-icon>
+                          </button>
+                          <button 
+                            type="button"
+                            (click)="viewMessages(campaign)"
+                            class="group flex items-center justify-center w-8 h-8 rounded-lg bg-blue-100 hover:bg-blue-200 text-blue-600 hover:text-blue-700 transition-all duration-300 transform hover:scale-110"
+                            title="Ver mensajes"
+                          >
+                            <lucide-icon [img]="MessageSquareIcon" class="size-4"></lucide-icon>
+                          </button>
+                          <button 
+                            *ngIf="campaign.process_status === 0"
+                            type="button" 
+                            (click)="processCampaign(campaign)"
+                            class="group flex items-center justify-center w-8 h-8 rounded-lg bg-green-100 hover:bg-green-200 text-green-600 hover:text-green-700 transition-all duration-300 transform hover:scale-110"
+                            title="Procesar campaña"
+                          >
+                            <lucide-icon [img]="PlayIcon" class="size-4"></lucide-icon>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Enhanced Pagination -->
+        <div *ngIf="!loading && campaigns && campaigns.length > 0 && totalPages > 1" class="mt-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200/50 p-6">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center text-sm text-gray-600">
+              <span>Mostrando {{getStartIndex()}} - {{getEndIndex()}} de {{totalCampaigns}} campañas</span>
+            </div>
+            
+            <div class="flex items-center space-x-2">
+              <button
+                *ngIf="currentPage > 1"
+                (click)="previousPage()"
+                class="group flex items-center space-x-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-700 font-medium transition-all duration-300 transform hover:scale-105"
+              >
+                <lucide-icon [img]="ArrowLeftIcon" class="size-4"></lucide-icon>
+                <span>Anterior</span>
+              </button>
+              
+              <div class="flex items-center space-x-1">
+                <button
+                  *ngFor="let page of [].constructor(totalPages); let i = index"
+                  (click)="goToPage(i + 1)"
+                  [class]="(i + 1) === currentPage 
+                    ? 'bg-indigo-600 text-white' 
+                    : 'bg-gray-100 hover:bg-gray-200 text-gray-700'"
+                  class="w-10 h-10 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105"
+                >
+                  {{i + 1}}
+                </button>
+              </div>
+              
+              <button
+                *ngIf="currentPage < totalPages"
+                (click)="nextPage()"
+                class="group flex items-center space-x-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-700 font-medium transition-all duration-300 transform hover:scale-105"
+              >
+                <span>Siguiente</span>
+                <lucide-icon [img]="ArrowRightIcon" class="size-4"></lucide-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Enhanced Empty State -->
+        <div *ngIf="!loading && (!campaigns || campaigns.length === 0)" class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200/50 p-12 text-center">
+          <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-gray-200 to-gray-300 rounded-full flex items-center justify-center">
+            <lucide-icon [img]="InboxIcon" class="size-10 text-gray-500"></lucide-icon>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">No hay campañas</h3>
+          <p class="text-gray-600 mb-8 max-w-md mx-auto">
+            Comienza creando tu primera campaña SMS para llegar a tus clientes de manera efectiva
+          </p>
+          <button
+            type="button"
+            (click)="router.navigate(['/campaigns/new'])"
+            class="group flex items-center space-x-2 px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-lg text-white font-semibold shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all duration-300 transform hover:scale-105 mx-auto"
+          >
+            <lucide-icon [img]="PlusIcon" class="size-5 group-hover:rotate-90 transition-transform duration-300"></lucide-icon>
+            <span>Crear Nueva Campaña</span>
+          </button>
+        </div>
+      </main>
+    </div>
+  </div>
+</div>
+
+<!-- EPIC CONFIRMATION DIALOG -->
+<app-confirmation-dialog
+  [isOpen]="showConfirmDialog"
+  [data]="confirmDialogData"
+  (confirm)="onConfirmProcessCampaign()"
+  (cancel)="onCancelProcessCampaign()"
+  (close)="closeConfirmDialog()"
+></app-confirmation-dialog> 

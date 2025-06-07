@@ -1,0 +1,352 @@
+<!-- EPIC CINEMA-QUALITY HERO HEADER -->
+<div class="relative max-h-[400px] bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 overflow-hidden">
+  <!-- Animated Background Elements -->
+  <div class="absolute inset-0">
+    <!-- Floating Gradient Orbs -->
+    <div class="absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-blue-400/30 to-purple-400/30 rounded-full blur-3xl animate-pulse"></div>
+    <div class="absolute top-40 right-20 w-96 h-96 bg-gradient-to-r from-purple-400/20 to-pink-400/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+    <div class="absolute bottom-20 left-1/3 w-80 h-80 bg-gradient-to-r from-indigo-400/25 to-blue-400/25 rounded-full blur-3xl animate-pulse delay-2000"></div>
+    
+    <!-- Grid Pattern Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/5 to-black/10"></div>
+    <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.1) 1px, transparent 0); background-size: 40px 40px;"></div>
+  </div>
+
+  <!-- PREMIUM NAVIGATION BAR -->
+  <div class="relative z-20 max-w-7xl mx-auto px-6 py-6">
+    <!-- Enhanced Breadcrumb -->
+    <nav class="flex mb-8" aria-label="Breadcrumb">
+            <ol role="list" class="flex items-center space-x-4">
+              <li>
+                  <button 
+                    type="button"
+                    (click)="onCancel()"
+            class="group flex items-center space-x-2 text-white/80 hover:text-white transition-all duration-300 transform hover:scale-105"
+                  >
+            <div class="p-2 rounded-lg bg-white/20 backdrop-blur-sm group-hover:bg-white/30 transition-all duration-300">
+              <lucide-icon [img]="ArrowLeftIcon" class="size-4"></lucide-icon>
+            </div>
+            <span class="font-medium">Campañas</span>
+                  </button>
+              </li>
+              <li>
+          <div class="flex items-center space-x-2">
+            <lucide-icon [img]="ChevronRightIcon" class="size-4 text-white/60"></lucide-icon>
+            <div class="flex items-center space-x-2 text-white">
+              <lucide-icon [img]="PlusIcon" class="size-4"></lucide-icon>
+              <span class="font-semibold">Nueva Campaña</span>
+            </div>
+                </div>
+              </li>
+            </ol>
+          </nav>
+          
+    <!-- EPIC HERO SECTION -->
+    <div class="flex items-center justify-between mb-8">
+      <div class="flex items-center space-x-6">
+        <div class="relative">
+          <div class="w-20 h-20 bg-white/10 backdrop-blur-sm rounded-3xl flex items-center justify-center border border-white/20 shadow-2xl transform hover:scale-110 transition-all duration-500">
+            <lucide-icon [img]="PlusIcon" class="size-10 text-white"></lucide-icon>
+          </div>
+          <div class="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center shadow-lg animate-pulse">
+            <lucide-icon [img]="SparklesIcon" class="size-4 text-white"></lucide-icon>
+              </div>
+            </div>
+        <div>
+          <h1 class="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-200 to-pink-200 mb-3 leading-tight">
+                Nueva Campaña SMS
+              </h1>
+          <p class="text-xl text-white/80 font-medium mb-2">Centro de Creación Avanzado</p>
+          <p class="text-white/60 max-w-2xl">
+            Diseña y configura tu campaña de mensajería con herramientas profesionales
+              </p>
+            </div>
+          </div>
+
+      <!-- Premium Action Buttons -->
+      <div class="flex items-center space-x-4">
+          <button 
+            type="button"
+            (click)="onCancel()"
+          class="group flex items-center space-x-2 px-6 py-3 bg-white/10 backdrop-blur-sm rounded-lg text-white/90 hover:bg-white/20 transition-all duration-300 transform hover:scale-105 border border-white/20"
+          >
+          <lucide-icon [img]="XIcon" class="size-5"></lucide-icon>
+          <span class="font-medium">Cancelar</span>
+          </button>
+        
+          <button 
+            type="button"
+            (click)="onSubmit()"
+            [disabled]="campaignForm.invalid || submitting"
+          class="group flex items-center space-x-2 px-8 py-4 bg-gradient-to-r from-emerald-500 via-green-500 to-teal-500 hover:from-emerald-400 hover:via-green-400 hover:to-teal-400 rounded-lg text-white font-semibold shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none"
+          >
+            <mat-spinner 
+              *ngIf="submitting" 
+            diameter="20" 
+              class="mr-2">
+            </mat-spinner>
+          <lucide-icon *ngIf="!submitting" [img]="SaveIcon" class="size-5 group-hover:rotate-12 transition-transform duration-300"></lucide-icon>
+          <span>{{ submitting ? 'Creando...' : 'Crear Campaña' }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- MAIN CONTENT SECTION -->
+<div class="bg-gray-50 min-h-screen">
+  <div class="max-w-7xl mx-auto px-6 py-12">
+    <!-- Enhanced Form -->
+      <form [formGroup]="campaignForm" (ngSubmit)="onSubmit()">
+      <div class="space-y-8">
+        
+        <!-- BASIC INFORMATION SECTION -->
+        <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200/50 overflow-hidden">
+          <div class="bg-gradient-to-r from-blue-50 to-indigo-50 px-8 py-6 border-b border-gray-200">
+            <div class="flex items-center">
+              <div class="p-3 bg-blue-500 rounded-xl mr-4">
+                <lucide-icon [img]="InfoIcon" class="size-6 text-white"></lucide-icon>
+              </div>
+              <div>
+                <h2 class="text-2xl font-bold text-gray-900">Información Básica</h2>
+                <p class="text-gray-600">Configura los detalles principales de tu campaña SMS</p>
+              </div>
+            </div>
+            </div>
+
+          <div class="p-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <!-- Campaign Name -->
+              <div class="md:col-span-2">
+                <label for="name" class="block text-sm font-bold text-gray-900 mb-3">
+                      Nombre de la Campaña *
+                    </label>
+                <div class="relative">
+                      <input 
+                        type="text" 
+                        id="name"
+                        formControlName="name"
+                        placeholder="Ej: Promoción Black Friday 2024"
+                        maxlength="100"
+                    class="block w-full rounded-xl border-0 py-4 px-6 text-gray-900 shadow-lg ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-lg font-medium transition-all duration-300 focus:transform focus:scale-[1.02]"
+                      >
+                  <div class="absolute inset-y-0 right-0 flex items-center pr-6">
+                    <lucide-icon [img]="TypeIcon" class="size-5 text-gray-400"></lucide-icon>
+                  </div>
+                    </div>
+                <div *ngIf="campaignForm.get('name')?.invalid && campaignForm.get('name')?.touched" class="mt-2 text-sm text-red-600 font-medium">
+                      {{ getErrorMessage('name') }}
+                    </div>
+                  </div>
+
+                  <!-- User Selection -->
+              <div>
+                <label for="user_id" class="block text-sm font-bold text-gray-900 mb-3">
+                      Usuario Responsable *
+                    </label>
+                <div class="relative">
+                      <select 
+                        id="user_id"
+                        formControlName="user_id"
+                        [disabled]="loading"
+                    class="block w-full rounded-xl border-0 py-4 px-6 text-gray-900 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-lg font-medium transition-all duration-300 focus:transform focus:scale-[1.02]"
+                      >
+                        <option value="">-- Seleccionar Usuario --</option>
+                        <option *ngFor="let user of users" [value]="user.id">
+                          {{ user.username }} - {{ user.email }}
+                        </option>
+                      </select>
+                  <div class="absolute inset-y-0 right-0 flex items-center pr-6 pointer-events-none">
+                    <lucide-icon [img]="UserIcon" class="size-5 text-gray-400"></lucide-icon>
+                  </div>
+                    </div>
+                <div *ngIf="campaignForm.get('user_id')?.invalid && campaignForm.get('user_id')?.touched" class="mt-2 text-sm text-red-600 font-medium">
+                      {{ getErrorMessage('user_id') }}
+                    </div>
+                  </div>
+
+                  <!-- Process Date -->
+              <div>
+                <label for="process_date" class="block text-sm font-bold text-gray-900 mb-3">
+                      Fecha de Procesamiento *
+                    </label>
+                <div class="relative">
+                      <input 
+                        type="date" 
+                        id="process_date"
+                        formControlName="process_date"
+                        [min]="minDate"
+                    class="block w-full rounded-xl border-0 py-4 px-6 text-gray-900 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-lg font-medium transition-all duration-300 focus:transform focus:scale-[1.02]"
+                      >
+                  <div class="absolute inset-y-0 right-0 flex items-center pr-6 pointer-events-none">
+                    <lucide-icon [img]="CalendarIcon" class="size-5 text-gray-400"></lucide-icon>
+                  </div>
+                    </div>
+                <div *ngIf="campaignForm.get('process_date')?.invalid && campaignForm.get('process_date')?.touched" class="mt-2 text-sm text-red-600 font-medium">
+                      {{ getErrorMessage('process_date') }}
+                    </div>
+                  </div>
+
+                  <!-- Process Hour -->
+              <div>
+                <label for="process_hour" class="block text-sm font-bold text-gray-900 mb-3">
+                      Hora de Procesamiento *
+                    </label>
+                <div class="relative">
+                      <input 
+                        type="time" 
+                        id="process_hour"
+                        formControlName="process_hour"
+                    class="block w-full rounded-xl border-0 py-4 px-6 text-gray-900 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-lg font-medium transition-all duration-300 focus:transform focus:scale-[1.02]"
+                      >
+                  <div class="absolute inset-y-0 right-0 flex items-center pr-6 pointer-events-none">
+                    <lucide-icon [img]="ClockIcon" class="size-5 text-gray-400"></lucide-icon>
+                  </div>
+                    </div>
+                <div *ngIf="campaignForm.get('process_hour')?.invalid && campaignForm.get('process_hour')?.touched" class="mt-2 text-sm text-red-600 font-medium">
+                      {{ getErrorMessage('process_hour') }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <!-- MESSAGE CONTENT SECTION -->
+        <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200/50 overflow-hidden">
+          <div class="bg-gradient-to-r from-green-50 to-emerald-50 px-8 py-6 border-b border-gray-200">
+            <div class="flex items-center">
+              <div class="p-3 bg-green-500 rounded-xl mr-4">
+                <lucide-icon [img]="MessageSquareIcon" class="size-6 text-white"></lucide-icon>
+              </div>
+              <div>
+                <h2 class="text-2xl font-bold text-gray-900">Contenido del Mensaje</h2>
+                <p class="text-gray-600">Define el mensaje que se enviará a todos los destinatarios</p>
+              </div>
+            </div>
+            </div>
+
+          <div class="p-8">
+            <div>
+              <label for="message_text" class="block text-sm font-bold text-gray-900 mb-3">
+                      Mensaje a Enviar *
+                    </label>
+              <div class="relative">
+                      <textarea 
+                        id="message_text"
+                        formControlName="message_text"
+                  rows="6"
+                        maxlength="500"
+                        placeholder="Escribe aquí el mensaje que se enviará a todos los números de la lista..."
+                  class="block w-full rounded-xl border-0 py-4 px-6 text-gray-900 shadow-lg ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-lg font-medium transition-all duration-300 focus:transform focus:scale-[1.02] resize-none"
+                      ></textarea>
+                <div class="absolute bottom-4 right-6">
+                  <div class="bg-gray-100 rounded-lg px-3 py-1">
+                    <span class="text-sm font-medium text-gray-600">
+                      {{ campaignForm.get('message_text')?.value?.length || 0 }}/500
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="campaignForm.get('message_text')?.invalid && campaignForm.get('message_text')?.touched" class="mt-2 text-sm text-red-600 font-medium">
+                {{ getErrorMessage('message_text') }}
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <!-- RECIPIENTS SECTION -->
+        <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200/50 overflow-hidden">
+          <div class="bg-gradient-to-r from-purple-50 to-pink-50 px-8 py-6 border-b border-gray-200">
+            <div class="flex items-center">
+              <div class="p-3 bg-purple-500 rounded-xl mr-4">
+                <lucide-icon [img]="UsersIcon" class="size-6 text-white"></lucide-icon>
+              </div>
+              <div>
+                <h2 class="text-2xl font-bold text-gray-900">Lista de Destinatarios</h2>
+                <p class="text-gray-600">Ingresa los números telefónicos de los destinatarios</p>
+              </div>
+            </div>
+            </div>
+
+          <div class="p-8">
+            <div>
+              <label for="phone_list" class="block text-sm font-bold text-gray-900 mb-3">
+                      Números Telefónicos *
+                    </label>
+              <div class="relative">
+                      <textarea 
+                        id="phone_list"
+                        formControlName="phone_list"
+                  rows="8"
+                        placeholder="Ingresa los números separados por comas, punto y coma o saltos de línea:&#10;+51953764369, +51934952748&#10;3001234567&#10;3007654321"
+                  class="block w-full rounded-xl border-0 py-4 px-6 text-gray-900 shadow-lg ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-lg font-mono transition-all duration-300 focus:transform focus:scale-[1.02] resize-none"
+                      ></textarea>
+                <div class="absolute top-4 right-6">
+                  <lucide-icon [img]="PhoneIcon" class="size-5 text-gray-400"></lucide-icon>
+                </div>
+              </div>
+              
+              <div *ngIf="campaignForm.get('phone_list')?.invalid && campaignForm.get('phone_list')?.touched" class="mt-3 text-sm text-red-600 font-medium">
+                {{ getErrorMessage('phone_list') }}
+              </div>
+              
+              <!-- Enhanced Instructions -->
+              <div class="mt-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-200/50">
+                <div class="flex items-start">
+                  <div class="flex-shrink-0">
+                    <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
+                      <lucide-icon [img]="InfoIcon" class="size-4 text-white"></lucide-icon>
+                    </div>
+                  </div>
+                  <div class="ml-4">
+                    <h3 class="text-lg font-bold text-blue-900 mb-3">Instrucciones de Formato</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-blue-800">
+                      <div class="flex items-center space-x-2">
+                        <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                        <span>Incluye código de país (+51)</span>
+                      </div>
+                      <div class="flex items-center space-x-2">
+                        <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                        <span>Separa con comas o líneas</span>
+                            </div>
+                      <div class="flex items-center space-x-2">
+                        <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                        <span>Sin espacios ni caracteres</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Enhanced Action Buttons -->
+        <div class="flex items-center justify-center space-x-6 pt-8">
+          <button 
+            type="button" 
+            (click)="onCancel()"
+            class="group flex items-center space-x-2 px-8 py-4 bg-gray-100 hover:bg-gray-200 rounded-xl text-gray-700 font-semibold transition-all duration-300 transform hover:scale-105"
+          >
+            <lucide-icon [img]="XIcon" class="size-5"></lucide-icon>
+            <span>Cancelar</span>
+          </button>
+          
+          <button 
+            type="submit"
+            [disabled]="campaignForm.invalid || submitting"
+            class="group flex items-center space-x-2 px-12 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-xl text-white font-bold shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none text-lg"
+          >
+              <mat-spinner 
+                *ngIf="submitting" 
+              diameter="20" 
+                class="mr-2">
+              </mat-spinner>
+            <lucide-icon *ngIf="!submitting" [img]="SaveIcon" class="size-5 group-hover:rotate-12 transition-transform duration-300"></lucide-icon>
+            <span>{{ submitting ? 'Creando Campaña...' : 'Crear Campaña' }}</span>
+          </button>
+        </div>
+        </div>
+      </form>
+  </div>
+</div> 

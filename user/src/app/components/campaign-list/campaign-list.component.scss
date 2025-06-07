@@ -1,0 +1,416 @@
+@use 'tailwindcss/base';
+@use 'tailwindcss/components';
+@use 'tailwindcss/utilities';
+
+// ========================================
+// 🎨 CAMPAIGN LIST - TAILWIND UI PATTERNS
+// Professional data table and application shell
+// ========================================
+
+/* Size utility for Material Icons to match Tailwind sizing */
+mat-icon.size-4 {
+  font-size: 1rem;
+  height: 1rem;
+  width: 1rem;
+}
+
+mat-icon.size-5 {
+  font-size: 1.25rem;
+  height: 1.25rem;
+  width: 1.25rem;
+}
+
+mat-icon.size-6 {
+  font-size: 1.5rem;
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+mat-icon.size-12 {
+  font-size: 3rem;
+  height: 3rem;
+  width: 3rem;
+}
+
+/* Screen reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Enhanced hover states for table rows */
+tbody tr:hover {
+  @apply bg-gray-50;
+}
+
+/* Campaign status badges */
+.status-pending {
+  @apply bg-yellow-100 text-yellow-800 ring-yellow-600/10;
+}
+
+.status-processing {
+  @apply bg-blue-100 text-blue-800 ring-blue-600/10;
+}
+
+.status-completed {
+  @apply bg-green-100 text-green-800 ring-green-600/10;
+}
+
+.status-error {
+  @apply bg-red-100 text-red-800 ring-red-600/10;
+}
+
+/* Focus styles for accessibility */
+button:focus {
+  @apply outline-none;
+}
+
+button:focus-visible {
+  @apply ring-2 ring-indigo-500 ring-offset-2;
+}
+
+/* Form input focus styles */
+input:focus,
+select:focus {
+  @apply ring-2 ring-inset ring-indigo-600;
+}
+
+/* Sticky sidebar */
+.sticky {
+  position: sticky;
+}
+
+/* Loading spinner center alignment */
+mat-spinner {
+  margin: 0 auto;
+}
+
+// =============================================================================
+// CAMPAIGN LIST COMPONENT - TAILWIND ONLY
+// Simple styling using only Tailwind CSS utilities
+// =============================================================================
+
+// Importar fuente Inter desde Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+// Asegurar que la fuente se aplique correctamente
+:host {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+// Estilos mínimos para Material Icons
+::ng-deep {
+      .mat-icon {
+    font-family: 'Material Icons' !important;
+    font-weight: normal !important;
+    font-style: normal !important;
+    line-height: 1 !important;
+    letter-spacing: normal !important;
+    text-transform: none !important;
+    display: inline-block !important;
+    white-space: nowrap !important;
+    word-wrap: normal !important;
+    direction: ltr !important;
+    -webkit-font-smoothing: antialiased !important;
+    text-rendering: optimizeLegibility !important;
+  }
+
+  // Estilos básicos para el spinner de Material Design
+  .mat-spinner {
+    circle {
+      stroke: currentColor !important;
+    }
+  }
+
+  // Botones de Material Design - solo lo esencial
+  .mat-button,
+  .mat-raised-button,
+  .mat-stroked-button {
+    font-family: 'Inter', sans-serif !important;
+    
+    .mat-button-wrapper {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 0.5rem !important;
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .max-w-7xl {
+    padding: 0 1rem !important;
+  }
+  
+  .px-6 {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  .py-8 {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+  
+  .grid-cols-1.md\\:grid-cols-2.lg\\:grid-cols-4 {
+    grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+  }
+} 
+
+/* Epic Campaign List Component - Cinema Quality Styles */
+
+/* Smooth transitions for all elements */
+* {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hero section background animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-10px) rotate(1deg); }
+  66% { transform: translateY(5px) rotate(-1deg); }
+}
+
+/* Pulse animation for status indicators */
+@keyframes pulse-glow {
+  0%, 100% { 
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+/* Floating elements animation */
+.floating-element {
+  animation: float 6s ease-in-out infinite;
+}
+
+.floating-element:nth-child(2) {
+  animation-delay: -2s;
+}
+
+.floating-element:nth-child(3) {
+  animation-delay: -4s;
+}
+
+/* Premium card hover effects */
+.premium-card {
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  
+  &:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* Glassmorphism effect */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Progress bar animations */
+.progress-bar {
+  overflow: hidden;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.4),
+      transparent
+    );
+    animation: shimmer 2s infinite;
+  }
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Epic button styles */
+.epic-button {
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transition: left 0.5s;
+  }
+  
+  &:hover::before {
+    left: 100%;
+  }
+}
+
+/* Text gradient effects */
+.gradient-text {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Statistics cards animation */
+.stats-card {
+  transform-origin: center;
+  
+  &:hover {
+    transform: translateY(-12px) scale(1.05);
+    z-index: 10;
+  }
+  
+  .stats-icon {
+    transition: transform 0.3s ease;
+  }
+  
+  &:hover .stats-icon {
+    transform: scale(1.2) rotate(5deg);
+  }
+}
+
+/* Table row hover effects */
+.table-row {
+  &:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Action button hover effects */
+.action-button {
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* Loading animation enhancement */
+.loading-spinner {
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border: 2px solid transparent;
+    border-top: 2px solid rgba(139, 92, 246, 0.6);
+    border-radius: 50%;
+    animation: spin 1.5s linear infinite reverse;
+  }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Enhanced filter form styles */
+.filter-form {
+  .form-field {
+    &:focus-within {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.15);
+    }
+  }
+}
+
+/* Pagination button effects */
+.pagination-button {
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  &.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+  }
+}
+
+/* Responsive enhancements */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem !important;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  
+  .action-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .glass {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Animation delays for staggered effects */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+
+/* Focus states for accessibility */
+button:focus-visible,
+.focusable:focus-visible {
+  outline: 2px solid #8b5cf6;
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .glass {
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid #000;
+  }
+  
+  .gradient-text {
+    -webkit-text-fill-color: initial;
+    color: #000;
+  }
+} 
