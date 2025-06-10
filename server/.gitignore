@@ -146,7 +146,12 @@ dist
 *.db
 *.sqlite
 *.sqlite3
-database/
+# Only ignore database data directories, not source code
+database/data/
+database/backups/
+database/logs/
+database/*.sql
+database/*.dump
 uploads/
 backups/
 

@@ -1,5 +1,5 @@
 const IRepository = require('../interfaces/IRepository');
-const DatabaseConnection = require('../database/DatabaseConnection');
+const DatabaseConnection = require('../../core/database/DatabaseConnection');
 
 /**
  * Base Repository Implementation
